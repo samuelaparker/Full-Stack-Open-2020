@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const Statistics = ({ average, positive, total }) => {
-  console.log(total)
   if (total >= 1) {
     return (
       <div>
+        <h1>statistics</h1>
         <p>average {average}</p>
         <p>postive {positive}</p>
       </div>
