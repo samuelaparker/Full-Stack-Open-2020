@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Statistics = ({ average, positive, total }) => {
+const Statistics = ({ average, positive, total, good, neutral, bad }) => {
   if (total >= 1) {
     return (
       <div>
         <h1>statistics</h1>
-        <p>average {average}</p>
-        <p>postive {positive}</p>
+        <Statistic text="good" value={good}/>
+        <Statistic text="neutral" value={neutral}/>
+        <Statistic text="bad" value={bad}/>
+        <Statistic text="all" value={total}/>
+        <Statistic text="average" value={average}/>
+        <Statistic text="postive" value={positive}/>
       </div>
     )
   } else {
@@ -18,6 +22,22 @@ const Statistics = ({ average, positive, total }) => {
       </div>
     )
   }
+}
+
+const Statistic = (props) => {
+  return (
+    <div>
+      <p>{props.text} {props.value}</p>
+    </div>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleClick}>{props.text}</button>
+    </div>
+  )
 }
 
 const App = () => {
@@ -31,17 +51,22 @@ const App = () => {
   const average = (good - bad) / total;
   const positive = (good / total) * 100;
 
+
+
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => { setGood(good + 1); setTotal(total + 1) }}>good</button>
-      <button onClick={() => { setNeutral(neutral + 1); setTotal(total + 1) }}>neutral</button>
-      <button onClick={() => { setBad(bad + 1); setTotal(total + 1) }}>bad</button>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {total}</p>
-      <Statistics average={average} positive={positive} total={total} />
+      <Button handleClick={() => { setGood(good + 1); setTotal(total + 1) }} text="good" />
+      <Button handleClick={() => { setNeutral(neutral + 1); setTotal(total + 1) }} text="neutral" />
+      <Button handleClick={() => { setBad(bad + 1); setTotal(total + 1) }} text="bad" />
+      <Statistics 
+      average={average} 
+      positive={positive} 
+      total={total} 
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      />
     </div>
   )
 }
