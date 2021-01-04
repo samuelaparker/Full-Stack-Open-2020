@@ -1,17 +1,34 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+
 const Statistics = ({ average, positive, total, good, neutral, bad }) => {
   if (total >= 1) {
     return (
       <div>
         <h1>statistics</h1>
-        <Statistic text="good" value={good}/>
-        <Statistic text="neutral" value={neutral}/>
-        <Statistic text="bad" value={bad}/>
-        <Statistic text="all" value={total}/>
-        <Statistic text="average" value={average}/>
-        <Statistic text="postive" value={positive}/>
+        <table>
+          <tbody>
+            <tr>
+              <th><Statistic text="good" value={good} /></th>
+            </tr>
+            <tr>
+              <th><Statistic text="neutral" value={neutral} /></th>
+            </tr>
+            <tr>
+              <th><Statistic text="bad" value={bad} /></th>
+            </tr>
+            <tr>
+              <th><Statistic text="all" value={total} /></th>
+            </tr>
+            <tr>
+              <th><Statistic text="average" value={average} /></th>
+            </tr>
+            <tr>
+              <th><Statistic text="postive" value={positive} /></th>
+            </tr>
+          </tbody>
+        </table>
       </div>
     )
   } else {
@@ -59,13 +76,13 @@ const App = () => {
       <Button handleClick={() => { setGood(good + 1); setTotal(total + 1) }} text="good" />
       <Button handleClick={() => { setNeutral(neutral + 1); setTotal(total + 1) }} text="neutral" />
       <Button handleClick={() => { setBad(bad + 1); setTotal(total + 1) }} text="bad" />
-      <Statistics 
-      average={average} 
-      positive={positive} 
-      total={total} 
-      good={good}
-      neutral={neutral}
-      bad={bad}
+      <Statistics
+        average={average}
+        positive={positive}
+        total={total}
+        good={good}
+        neutral={neutral}
+        bad={bad}
       />
     </div>
   )
