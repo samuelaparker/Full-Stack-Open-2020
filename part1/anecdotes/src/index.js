@@ -21,6 +21,7 @@ const Anecdotes = ({ selected, tally, maxTallyValue, anecdoteWithMaxVotes }) => 
   }
 }
 
+
 const App = (props) => {
 
   const [selected, setSelected] = useState(0)
