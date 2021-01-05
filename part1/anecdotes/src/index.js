@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-
 const Anecdotes = ({ selected, tally, maxTallyValue, anecdoteWithMaxVotes }) => {
   if (tally[selected] > maxTallyValue) {
     return (
@@ -26,8 +25,6 @@ const App = (props) => {
 
   const [selected, setSelected] = useState(0)
   const [tally, setTally] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 })
-  
-
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
@@ -64,12 +61,11 @@ const App = (props) => {
         <button onClick={vote}>vote</button>
       </div>
       <div>
-        <Anecdotes selected={selected} tally={tally} maxTallyValue={maxTallyValue} anecdoteWithMaxVotes={anecdoteWithMaxVotes} anecdotes={anecdotes}  />
-    </div>
+        <Anecdotes selected={selected} tally={tally} maxTallyValue={maxTallyValue} anecdoteWithMaxVotes={anecdoteWithMaxVotes} anecdotes={anecdotes} />
+      </div>
     </div>
   )
 }
-
 
 const anecdotes = [
   'If it hurts, do it more often',
