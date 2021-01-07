@@ -1,61 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Course from './components/Course'
 
-// const Total = ({ parts }) => {
-//   let sum = parts.reduce((a, { exercises }) => a + exercises, 0);
-//   return (
-//     <p>Total of {sum} exercises</p>
-//   )
-// }
-
-const Course = ({ courses }) => {
-  
-  return (
-
-    <div>
-    {courses.map(n =>
-    <Header key={n.id} course={n.name} courses={courses} />
-    )}
-    {/* {courses.map(n =>
-    <Content key={n.id} part={n.parts} /> 
-    )} */}
-    
-    </div>
-  )
-}
-
-const Header = ({course, courses}) => {
-console.log(course)
-  return (
-    <div>
-    <h1>{course}</h1> 
-    {courses.map(n =>
-    <Content key={n.id} part={n.parts} /> 
-    )}
-    </div>
-  )
-}
-
-const Content = ({part}) => {
-  console.log(part) //!!!!!
-  return (
-  <div>
-    {part.map(n => 
-    <Part key={n.id} part={n.name} />
-    )}
-  </div>
-  )
-}
-
-
-const Part = ({part}) => {
-  console.log(part)
-  return (
-    <div>
-      <p>{part}</p>
-    </div>
-  )
-}
 
 const App = () => {
   const courses = [
@@ -106,8 +52,8 @@ const App = () => {
   return (
     
     <div>
-      <Course courses={courses} />
-      {/* <h4><Total courses={courses} /></h4> */}
+    <h1>Web development curriculum</h1>
+      {courses.map(n => <Course key={n.id} value={n} />)}
     </div>
     
   )
