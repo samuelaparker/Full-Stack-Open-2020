@@ -8,51 +8,50 @@ import ReactDOM from 'react-dom';
 //   )
 // }
 
+//TEST!!!
 const Course = ({ courses }) => {
   
   return (
 
     <div>
-    {courses.map(n =>
-    <Header key={n.id} course={n.name} courses={courses} />
+    {courses.map((n, i) =>
+    <Header key={n.id} course={n.name} courses={courses} length={i} />
     )}
     {/* {courses.map(n =>
     <Content key={n.id} part={n.parts} /> 
     )} */}
-    
     </div>
   )
 }
 
-const Header = ({course, courses}) => {
-console.log(course)
+const Header = ({course, courses, length}) => {
   return (
     <div>
     <h1>{course}</h1> 
-    {courses.map(n =>
-    <Content key={n.id} part={n.parts} /> 
+    {courses.map((n, i) =>
+    <Content key={n.id} part={n.parts} length={i} courses={n.part} /> 
     )}
     </div>
   )
 }
 
-const Content = ({part}) => {
-  console.log(part) //!!!!!
-  return (
-  <div>
-    {part.map(n => 
-    <Part key={n.id} part={n.name} />
-    )}
-  </div>
-  )
+const Content = ({part, length, courses}) => {
+  // let numberOfCourses = length.length;
+  console.log(part) //!!!!
+    return (
+      <div>
+        {part.map(n => 
+        <Part key={n.id} name={n.name} />
+        )}
+      </div>
+    )
 }
 
-
-const Part = ({part}) => {
-  console.log(part)
+const Part = ({name}) => {
+  
   return (
     <div>
-      <p>{part}</p>
+      <p>{name}</p>
     </div>
   )
 }
