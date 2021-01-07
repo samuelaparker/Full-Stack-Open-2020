@@ -1,12 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Header = ({ course }) => {
-  return (
-    <h1>{course.name}</h1>
-  )
-}
-
 // const Total = ({ parts }) => {
 //   let sum = parts.reduce((a, { exercises }) => a + exercises, 0);
 //   return (
@@ -14,37 +8,56 @@ const Header = ({ course }) => {
 //   )
 // }
 
-const Part = ({part}) => {
+const Course = ({ courses }) => {
   
   return (
-    <p>
-    {part.name} {part.exercises}
-    </p>    
+
+    <div>
+    {courses.map(n =>
+    <Header key={n.id} course={n.name} courses={courses} />
+    )}
+    {/* {courses.map(n =>
+    <Content key={n.id} part={n.parts} /> 
+    )} */}
+    
+    </div>
   )
 }
-const Content = ({content, courses}) => {
-  console.log(content)
-  const part = content.map(part =>
-    <Part key={part.id} part={part} />
-    )
+
+const Header = ({course, courses}) => {
+console.log(course)
   return (
-    <div>{part}</div>
+    <div>
+    <h1>{course}</h1> 
+    {courses.map(n =>
+    <Content key={n.id} part={n.parts} /> 
+    )}
+    </div>
   )
 }
-const Course = ({ courses }) => {
-  const headers = courses.map(course => 
-    <Header key={course.id} course={course} />
-    ) 
-  const content = courses.map((content, i) => 
-    <Content key={i} content={content.parts} />
-    )
+
+const Content = ({part}) => {
+  console.log(part) //!!!!!
   return (
-    <div>{headers} {content}</div>
+  <div>
+    {part.map(n => 
+    <Part key={n.id} part={n.name} />
+    )}
+  </div>
+  )
+}
+
+
+const Part = ({part}) => {
+  console.log(part)
+  return (
+    <div>
+      <p>{part}</p>
+    </div>
   )
 }
 
 const App = () => {
-  
   const courses = [
     {
       name: 'Half Stack application development',
@@ -99,6 +112,5 @@ const App = () => {
     
   )
 }
-
 
 ReactDOM.render(<App />, document.getElementById('root'))
