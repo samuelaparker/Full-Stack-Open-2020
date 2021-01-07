@@ -6,7 +6,7 @@ const Course = ({ value}) => {
       <div>
       <Header value={value.name} />
       {value.parts.map(n => <Content key={n.id} value={n} />)}
-      <h3>total of {sum} exercises </h3>
+      <h4>total of {sum} exercises </h4>
       </div>
     )
   }
