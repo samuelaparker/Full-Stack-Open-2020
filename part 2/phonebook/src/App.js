@@ -36,8 +36,9 @@ const App = () => {
   const handleFilterInput = (event) => {
     setFilterInput(event.target.value)
   }  
-  
-console.log(persons.map(n => n.name).filter(n => n.toLowerCase().includes(filterInput.toLowerCase())))
+
+
+const filteredPeople = persons.map(n => n).filter(n => n.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
   
 return (
     <div>
@@ -68,12 +69,9 @@ return (
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(n => <p key={n.name}>{n.name} {n.number} </p>)}
-      {/* {persons.filter(person => person.name).map(({id, name, number}) => (
-        <li key={id} >
-          {name} {number}
-        </li>
-      ))} */}
+      <div>
+      {filteredPeople.map(n => <p key={n.name}>{n.name} {n.number} </p>)}
+      </div>
     </div>
   )
 }
