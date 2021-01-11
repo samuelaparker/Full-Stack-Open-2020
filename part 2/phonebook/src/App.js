@@ -11,14 +11,13 @@ const App = () => {
   const [newNumber, setNumber] = useState('')
   const [filterInput, setFilterInput] = useState('')
 
-
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
       name: newName,
       number: newNumber
     }
-    if (persons.some(n => n.name === newName) || persons.some(n =>n.number === newNumber)) {
+    if (persons.some(n => n.name === newName) || persons.some(n => n.number === newNumber)) {
       alert(`${newName} ${newNumber} is already added to the phonebook`)
     } else {
       setPersons(persons.concat(personObject))
@@ -26,53 +25,88 @@ const App = () => {
       setNumber('')
     }
   }
-  
+
   const handleNameInput = (event) => {
     setNewName(event.target.value)
   }
   const handleNumberInput = (event) => {
     setNumber(event.target.value)
   }
+
   const handleFilterInput = (event) => {
     setFilterInput(event.target.value)
-  }  
+  }
 
+  const filteredPeople = persons.map(n => n).filter(n => n.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
 
-const filteredPeople = persons.map(n => n).filter(n => n.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
-  
-return (
+  return (
     <div>
-    <h1>Phonebook</h1>
+      <h1>Phonebook</h1>
+      <Filter
+        filterInput={filterInput}
+        handleFilterInput={handleFilterInput}
+      />
+      <h2>add a new</h2>
+      <PersonForm
+        persons={persons}
+        newName={newName}
+        newNumber={newNumber}
+        addPerson={addPerson}
+        handleNameInput={handleNameInput}
+        handleNumberInput={handleNumberInput}
+      />
+      <Persons filteredPeople={filteredPeople} />
+    </div>
+  )
+}
+
+const Filter = (props) => {
+
+  return (
     <div>
-      filter shown with: 
-      <input 
-      value={filterInput}
-      onChange={handleFilterInput}
+      filter shown with:
+      <input
+        value={props.filterInput}
+        onChange={props.handleFilterInput}
       />
     </div>
-      <h2>add a new</h2>
-      <form onSubmit={addPerson} >
+  )
+}
+
+const PersonForm = (props) => {
+  return (
+    <div>
+      <form onSubmit={props.addPerson} >
         <div>
           name: <input
-            value={newName}
-            onChange={handleNameInput}
+            value={props.newName}
+            onChange={props.handleNameInput}
           />
         </div>
         <div>
           number: <input
-            value={newNumber}
-            onChange={handleNumberInput}
+            value={props.newNumber}
+            onChange={props.handleNumberInput}
           />
         </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
+    </div>
+  )
+
+}
+
+const Persons = (props) => {
+  return (
+    <div>
       <h2>Numbers</h2>
       <div>
-      {filteredPeople.map(n => <p key={n.name}>{n.name} {n.number} </p>)}
+        {props.filteredPeople.map(n => <p key={n.name}>{n.name} {n.number} </p>)}
       </div>
     </div>
+
   )
 }
 
