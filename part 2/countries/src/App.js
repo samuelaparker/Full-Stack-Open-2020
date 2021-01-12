@@ -36,38 +36,36 @@ const Search = (props) => {
     </div>
   )
 }
-const ShowInfo = ({filteredCountries}) => {
-  console.log(filteredCountries)
+const ShowInfo = ({filteredCountries, buttonId}) => {
+  console.log(filteredCountries[buttonId].capital)
+  console.log(buttonId)
+  const country = filteredCountries[buttonId]
     return (
       <div>
-        {filteredCountries.map(({ name, capital, population, languages, flag, numericCode }) =>
-          <div key={numericCode}>
-            <h1>{name}</h1>
-            <p>Capital: {capital}</p>
-            <p>Population: {population}</p>
+          <div key={country.numericCode}>
+            <h1>{country.name}</h1>
+            <p>Capital: {country.capital}</p>
+            <p>Population: {country.population}</p>
             <h2>Languages</h2>
             <div>
-              {languages.map(n => <li key={n.so639_1}>{n.name}</li>)}
+              {country.languages.map((n, i) => <li key={i}>{n.name}</li>)}
             </div>
             <div>
-              <img src={flag} alt="Flag" style={{ maxWidth: "250px", marginTop: "25px" }} />
+              <img src={country.flag} alt="Flag" style={{ maxWidth: "250px", marginTop: "25px" }} />
             </div>
           </div>
-        )
-        }
-        {}
-
-
       </div>
     )
   }
 
 const RenderData = ({ filteredCountries }) => {
   const [clickToggle, setClickToggle] = useState(false)
+  const [buttonId, setButtonId] = useState(0)
   
-  const triggerShowInfo = () => {
+  const triggerShowInfo = (event) => {
+    console.log(event.target.id)
     setClickToggle(true)
-    console.log(clickToggle)
+    setButtonId(event.target.id)
   }
   
   if (filteredCountries.length > 10) {
@@ -80,15 +78,15 @@ const RenderData = ({ filteredCountries }) => {
   } else if (filteredCountries.length < 10 && filteredCountries.length >= 2) {
     return (
       <div>
-        {filteredCountries.map((n) => 
+        {filteredCountries.map((n, i) => 
         <div key={n.numericCode}>
         <p style={{display : 'inline'}} key={n.numericCode}>{n.name} </p>
-        <button onClick={triggerShowInfo}>show</button>
+        <button id={i} onClick={triggerShowInfo}>show</button>
         </div>
         )
         }
         {clickToggle === true &&
-        <ShowInfo filteredCountries={filteredCountries} />
+        <ShowInfo filteredCountries={filteredCountries} buttonId={buttonId} />
         }
       </div>
     ) 
