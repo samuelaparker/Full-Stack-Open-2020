@@ -15,15 +15,22 @@ const App = () => {
     setSearchInput(event.target.value)
     const filteredCapital = filteredCountries.map(n => n.capital)
     // if (filteredCapital.length === 1) {
-    //   setQuery(filteredCapital)
+    setQuery(filteredCapital)
     //   getWeatherData(query)
     //   console.log(filteredCountries)
     // } else {
     //   setQuery([])
     // }
-    setQuery()
+    if (query && query.length > 1) {
+      if (query.length % 2 === 0) {
+        getWeatherData()
+      }
+    } else if (query) {
+    }
   }
-  console.log(countries)
+  console.log(query)
+
+  
 
   useEffect(() => {
     axios
@@ -33,7 +40,7 @@ const App = () => {
       )
   }, [])
 
-  const getWeatherData = (query) => {
+  const getWeatherData = () => {
     const api_key = process.env.REACT_APP_API_KEY
     axios
       .get(`http://api.weatherstack.com/current`, {
@@ -48,10 +55,11 @@ const App = () => {
         setWeather(response.data)
 
       }).catch(error => {
-        setWeather([])
+        console.log(error)
       })
   }
   console.log(weather)
+  
 
   return (
     <div>
