@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import personService from './services/persons'
 
 const App = () => {
@@ -8,6 +7,8 @@ const App = () => {
   const [newNumber, setNumber] = useState('')
   const [filterInput, setFilterInput] = useState('')
 
+  const filteredPeople = persons.map(n => n).filter(n => n.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
+
   useEffect(() => {
     personService
       .getAll()
@@ -15,12 +16,13 @@ const App = () => {
         setPersons(response)
       })
   }, [])
-
+  
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      id: persons.length + 1,
     }
     if (persons.some(n => n.name === newName) || persons.some(n => n.number === newNumber)) {
       alert(`${newName} ${newNumber} is already added to the phonebook`)
@@ -47,7 +49,20 @@ const App = () => {
     setFilterInput(event.target.value)
   }
 
-  const filteredPeople = persons.map(n => n).filter(n => n.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
+  const deletePerson = (id) => {
+    let person = persons.find(n => n.id === id)
+    if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
+      personService
+        .deleteResource(id)
+        .then(() => {
+          setPersons(persons.filter(n => n.id !== id))
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+    console.log(persons.filter(n => n.id !== id))
+  }
 
   return (
     <div>
@@ -65,7 +80,17 @@ const App = () => {
         handleNameInput={handleNameInput}
         handleNumberInput={handleNumberInput}
       />
-      <Persons filteredPeople={filteredPeople} />
+      <div>
+        <h3>Numbers:</h3>
+        {filteredPeople.map((person) =>
+          <Person
+            key={person.id}
+            name={person.name}
+            number={person.number}
+            deletePerson={() => deletePerson(person.id)}
+          />
+        )}
+      </div>
     </div>
   )
 }
@@ -108,12 +133,12 @@ const PersonForm = (props) => {
 
 }
 
-const Persons = (props) => {
+const Person = (props) => {
   return (
     <div>
-      <h2>Numbers</h2>
       <div>
-        {props.filteredPeople.map(n => <p key={n.name}>{n.name} {n.number} </p>)}
+        {props.name} {props.number}
+        <button onClick={props.deletePerson}>Delete</button>
       </div>
     </div>
 
