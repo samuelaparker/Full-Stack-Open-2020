@@ -24,6 +24,16 @@
       "name": "Sam Parker",
       "number": "994 909 9090",
       "id": 5
+    },
+    {
+      "name": "Trish Ramirez",
+      "number": "709 709 7090",
+      "id": 6
+    },
+    {
+      "name": "Amiable Amy",
+      "number": "234 234 1231",
+      "id": 7
     }
   ]
 }
