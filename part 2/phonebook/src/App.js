@@ -16,7 +16,7 @@ const App = () => {
         setPersons(response)
       })
   }, [])
-  
+
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
@@ -26,23 +26,19 @@ const App = () => {
     }
     if (persons.some(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase()) || persons.some(n => n.number === newNumber)) {
       window.confirm(`${newName} is already added to the phonebook would you like to update the number?`)
-        const contact = persons.find(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase())
-        const changedContact = { ...contact, number: newNumber }
-  
-        personService
-          .update(changedContact.id, changedContact)
-          .then(returnedContact => {
-            
-            setPersons(persons.map(person => person.name !== changedContact.name ? person : returnedContact))
-            console.log(persons)
-            
-            setNewName('')
-            setNumber('')
-          })
-          .catch(error => {console.log(error)})
-      
-    } 
-  
+      const contact = persons.find(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase())
+      const changedContact = { ...contact, number: newNumber }
+      personService
+        .update(changedContact.id, changedContact)
+        .then(returnedContact => {
+          setPersons(persons.map(person => person.name !== changedContact.name ? person : returnedContact))
+          setNewName('')
+          setNumber('')
+        })
+        .catch(error => { console.log(error) })
+
+    }
+
     else {
       personService
         .create(personObject)
@@ -78,7 +74,7 @@ const App = () => {
           console.log(error)
         })
     }
-    
+
   }
 
   return (
