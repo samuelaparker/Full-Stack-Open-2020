@@ -24,9 +24,26 @@ const App = () => {
       number: newNumber,
       id: persons.length + 1,
     }
-    if (persons.some(n => n.name === newName) || persons.some(n => n.number === newNumber)) {
-      alert(`${newName} ${newNumber} is already added to the phonebook`)
-    } else {
+    if (persons.some(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase()) || persons.some(n => n.number === newNumber)) {
+      window.confirm(`${newName} is already added to the phonebook would you like to update the number?`)
+        const contact = persons.find(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase())
+        const changedContact = { ...contact, number: newNumber }
+  
+        personService
+          .update(changedContact.id, changedContact)
+          .then(returnedContact => {
+            
+            setPersons(persons.map(person => person.name !== changedContact.name ? person : returnedContact))
+            console.log(persons)
+            
+            setNewName('')
+            setNumber('')
+          })
+          .catch(error => {console.log(error)})
+      
+    } 
+  
+    else {
       personService
         .create(personObject)
         .then(response => {
@@ -61,7 +78,7 @@ const App = () => {
           console.log(error)
         })
     }
-    console.log(persons.filter(n => n.id !== id))
+    
   }
 
   return (
