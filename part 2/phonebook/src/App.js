@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import personService from './services/persons'
+import Notification from './components/Notification'
+import ErrorMessage from './components/ErrorMessage'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNumber] = useState('')
   const [filterInput, setFilterInput] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const filteredPeople = persons.map(n => n).filter(n => n.name.toLocaleLowerCase().includes(filterInput.toLocaleLowerCase()))
 
@@ -32,10 +36,19 @@ const App = () => {
         .update(changedContact.id, changedContact)
         .then(returnedContact => {
           setPersons(persons.map(person => person.name !== changedContact.name ? person : returnedContact))
+          setNotificationMessage(`Updated ${contact.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 3000)
           setNewName('')
           setNumber('')
         })
-        .catch(error => { console.log(error) })
+        .catch(error => { 
+          setErrorMessage(`Contact of ${contact.name} already removed from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 3000)
+        })
 
     }
 
@@ -44,6 +57,10 @@ const App = () => {
         .create(personObject)
         .then(response => {
           setPersons(persons.concat(response))
+          setNotificationMessage(`Added ${personObject.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 3000)
           setNewName('')
           setNumber('')
         })
@@ -69,6 +86,10 @@ const App = () => {
         .deleteResource(id)
         .then(() => {
           setPersons(persons.filter(n => n.id !== id))
+          setNotificationMessage(`Deleted ${person.name}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 3000)
         })
         .catch(error => {
           console.log(error)
@@ -80,6 +101,8 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notification message={notificationMessage} />
+      <ErrorMessage message={errorMessage} />
       <Filter
         filterInput={filterInput}
         handleFilterInput={handleFilterInput}
