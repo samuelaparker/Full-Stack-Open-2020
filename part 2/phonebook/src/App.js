@@ -20,7 +20,7 @@ const App = () => {
         setPersons(response)
       })
   }, [])
-
+console.log(persons)
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
