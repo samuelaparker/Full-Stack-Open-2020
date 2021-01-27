@@ -90,6 +90,7 @@ console.log(persons)
           setTimeout(() => {
             setNotificationMessage(null)
           }, 3000)
+          console.log(persons)
         })
         .catch(error => {
           console.log(error)
