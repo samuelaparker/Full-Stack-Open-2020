@@ -81,6 +81,7 @@ console.log(persons)
 
   const deletePerson = (id) => {
     let person = persons.find(n => n.id === id)
+    console.log(id)
     if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
       personService
         .deleteResource(id)
@@ -96,7 +97,6 @@ console.log(persons)
           console.log(error)
         })
     }
-
   }
 
   return (
