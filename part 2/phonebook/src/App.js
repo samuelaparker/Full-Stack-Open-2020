@@ -20,7 +20,9 @@ const App = () => {
         setPersons(response)
       })
   }, [])
+
 console.log(persons)
+
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
@@ -28,32 +30,7 @@ console.log(persons)
       number: newNumber,
       id: persons.length + 1,
     }
-    if (persons.some(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase()) || persons.some(n => n.number === newNumber)) {
-      window.confirm(`${newName} is already added to the phonebook would you like to update the number?`)
-      const contact = persons.find(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase())
-      const changedContact = { ...contact, number: newNumber }
-      personService
-        .update(changedContact.id, changedContact)
-        .then(returnedContact => {
-          setPersons(persons.map(person => person.name !== changedContact.name ? person : returnedContact))
-          setNotificationMessage(`Updated ${contact.name}`)
-          setTimeout(() => {
-            setNotificationMessage(null)
-          }, 3000)
-          setNewName('')
-          setNumber('')
-        })
-        .catch(error => { 
-          setErrorMessage(`Contact of ${contact.name} already removed from server`)
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 3000)
-        })
-
-    }
-
-    else {
-      personService
+    personService
         .create(personObject)
         .then(response => {
           setPersons(persons.concat(response))
@@ -63,9 +40,61 @@ console.log(persons)
           }, 3000)
           setNewName('')
           setNumber('')
+          console.log(personObject)
         })
+        .catch(error => { 
+                setErrorMessage(`${error.response.data.message}`)
+                console.log(error.response.data)
+                setTimeout(() => {
+                  setErrorMessage(null)
+                }, 7000)
+              })
 
-    }
+    // if (persons.some(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase()) || persons.some(n => n.number === newNumber)) {
+    //   window.confirm(`${newName} is already added to the phonebook would you like to update the number?`)
+    //   const contact = persons.find(n => n.name.toLocaleLowerCase() === newName.trim().toLocaleLowerCase())
+    //   const changedContact = { ...contact, number: newNumber }
+    //   personService
+    //     .update(changedContact.id, changedContact)
+    //     .then(returnedContact => {
+    //       setPersons(persons.map(person => person.name !== changedContact.name ? person : returnedContact))
+    //       setNotificationMessage(`Updated ${contact.name}`)
+    //       setTimeout(() => {
+    //         setNotificationMessage(null)
+    //       }, 3000)
+    //       setNewName('')
+    //       setNumber('')
+    //     })
+    //     .catch(error => { 
+    //       setErrorMessage(`Contact of ${contact.name} already removed from server`)
+    //       setTimeout(() => {
+    //         setErrorMessage(null)
+    //       }, 3000)
+    //     })
+    // }
+
+    // else {
+    //   personService
+    //     .create(personObject)
+    //     .then(response => {
+    //       setPersons(persons.concat(response))
+    //       setNotificationMessage(`Added ${personObject.name}`)
+    //       setTimeout(() => {
+    //         setNotificationMessage(null)
+    //       }, 3000)
+    //       setNewName('')
+    //       setNumber('')
+    //       console.log(personObject)
+    //     })
+    //     // .catch(error => { 
+    //     //   setErrorMessage(`${error.response.data}`)
+    //     //   console.log(error.response.data)
+    //     //   setTimeout(() => {
+    //     //     setErrorMessage(null)
+    //     //   }, 3000)
+    //     // })
+      
+    // }
   }
 
   const handleNameInput = (event) => {
