@@ -13,11 +13,11 @@ Content-Type: application/json
   "number": "555 555 5555"
 }
 ###
-POST http://localhost:3001/api/persons/
+PUT http://localhost:3001/api/persons/601c35d9626905a41d90d208
 Content-Type: application/json
 
 {
-  "name": "Ar",
-  "number": "555"
+  "name": "Trish",
+  "number": "1111111111111"
 }
 
