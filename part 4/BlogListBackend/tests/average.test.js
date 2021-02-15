@@ -13,3 +13,11 @@ describe('average', () => {
     expect(average([])).toBe(0)
   })
 })
+
+const dummy = (blogs) => {
+  // ...
+}
+
+module.exports = {
+  dummy
+}

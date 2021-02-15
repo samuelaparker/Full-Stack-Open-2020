@@ -1,3 +1,7 @@
+const dummy = (blogs) => {
+  return 1
+}
+
 const palindrome = (string) => {
     return string
       .split('')
@@ -17,4 +21,5 @@ const palindrome = (string) => {
   module.exports = {
     palindrome,
     average,
+    dummy
   }
