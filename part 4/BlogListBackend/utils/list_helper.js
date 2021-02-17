@@ -1,7 +1,14 @@
-const dummy = (blogs) => {
-  return 1
+
+
+const dummy = () => {
+  return 1;
 }
 
+const totalLikes = (blogs) => {
+  return blogs.length === 0 
+  ? 0
+  : blogs.reduce((acc, cur) => acc + cur.likes, 0)
+}
 const palindrome = (string) => {
     return string
       .split('')
@@ -19,7 +26,8 @@ const palindrome = (string) => {
   }
   
   module.exports = {
+    dummy,
     palindrome,
     average,
-    dummy
+    totalLikes
   }

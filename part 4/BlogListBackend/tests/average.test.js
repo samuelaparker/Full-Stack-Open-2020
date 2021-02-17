@@ -14,7 +14,7 @@ describe('average', () => {
   })
 })
 
-const dummy = (blogs) => {
+const dummy = () => {
   // ...
 }
 
