@@ -1,4 +1,4 @@
-
+const _ = require('lodash')
 
 const dummy = () => {
   return 1;
@@ -34,6 +34,10 @@ const average = (array) => {
   return array.length === 0
     ? 0
     : array.reduce(reducer, 0) / array.length
+}
+
+const mostBlogs = (blogs) => {
+  
 }
 
 module.exports = {
