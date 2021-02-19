@@ -37,7 +37,14 @@ const average = (array) => {
 }
 
 const mostBlogs = (blogs) => {
-  
+  if (blogs.length === 0) {
+    return null
+  } else {
+    const blogCountByAuthor = _.map(
+      _.countBy(blogs, 'author'), (blogs, author) => ({ blogs, author })
+    )
+    return _.maxBy(blogCountByAuthor, 'blogs');
+  }
 }
 
 module.exports = {
@@ -45,5 +52,6 @@ module.exports = {
   palindrome,
   average,
   totalLikes,
-  favoriteBlogs
+  favoriteBlogs, 
+  mostBlogs
 }

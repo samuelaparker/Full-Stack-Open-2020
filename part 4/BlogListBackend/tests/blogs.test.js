@@ -114,3 +114,18 @@ describe('total likes', () => {
           })
       })
   })
+
+  describe('most blogs', () => {
+    test('empty list', () => {
+        const result = listHelper.mostBlogs(listWithNoBlogs)
+        expect(result).toEqual(null)
+    })
+
+    test('favorite blog from list of multiple blogs', () => {
+        const result = listHelper.mostBlogs(listWithMultipleBlogs)
+        expect(result).toEqual({
+          blogs: 3,
+          author: "Robert C. Martin",
+        })
+    })
+  })
