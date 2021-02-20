@@ -47,11 +47,28 @@ const mostBlogs = (blogs) => {
   }
 }
 
+const mostLikes = (blogs) => {
+  if (blogs.length === 0) {
+    return null;
+  } else {
+    let bloggerList = _.groupBy(blogs, 'author')
+    let list = []
+    _.forEach(bloggerList, (blogger) => {
+      list.push({
+        author: _.head(blogger).author,
+        likes: _.sumBy(blogger, (blog) => (blog.likes))
+      })
+    })
+    return  _.maxBy(list, 'likes');
+  }
+}
+
 module.exports = {
   dummy,
   palindrome,
   average,
   totalLikes,
   favoriteBlogs, 
-  mostBlogs
+  mostBlogs,
+  mostLikes,
 }
