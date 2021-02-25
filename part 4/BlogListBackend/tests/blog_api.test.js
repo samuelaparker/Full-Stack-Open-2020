@@ -24,6 +24,7 @@ test('notes are returned as json', async () => {
 test('check that all blogs are returned', async () => {
     const response = await api.get('/api/blogs')
     expect(response.body).toHaveLength(response.body.length)
+    console.log(response.body)
   })
 //   test('check if blogs have id property', async () => {
 //       const response = await api.get('/api/blogs')
