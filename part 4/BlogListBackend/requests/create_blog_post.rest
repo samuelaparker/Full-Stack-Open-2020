@@ -6,8 +6,9 @@ POST http://localhost:3003/api/blogs/
 Content-Type: application/json
 
 {
-    "title": "I will master this skill set",
-    "author": "Sam Parker",
+    "title": "Gardening Tips",
+    "author": "Robin Kerber",
+    "body": "",
     "url": "",
     "likes": ""
 }
