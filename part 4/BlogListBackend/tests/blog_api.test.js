@@ -42,7 +42,7 @@ test('check that all blogs are returned', async () => {
 test('check if blogs have id property', async () => {
   const result = await api.get('/api/blogs')
   expect(result.body.map(blog => blog.id)).toBeDefined()
-});
+})
 
 test('a valid note can be added', async () => {
   const newPost = {
@@ -64,6 +64,10 @@ test('a valid note can be added', async () => {
 
   expect(response.body).toHaveLength(initialBlogs.length + 1)
   expect(title).toContain('Building Good Study Habits')
+})
+
+test('verify that if the likes property is missing from the request', async () => {
+  
 })
 
 afterAll(() => {
