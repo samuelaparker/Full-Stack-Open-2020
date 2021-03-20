@@ -43,7 +43,7 @@ test('check if blogs have id property', async () => {
   const result = await api.get('/api/blogs')
   expect(result.body.map(blog => blog.id)).toBeDefined()
 });
-// 
+
 test('a valid note can be added', async () => {
   const newPost = {
     title: 'Building Good Study Habits',
