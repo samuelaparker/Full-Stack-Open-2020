@@ -4,6 +4,8 @@ const app = require('../app')
 const api = supertest(app)
 const Blog = require('../models/blog')
 
+
+
 const initialBlogs = [
   {
     title: 'React patterns',
@@ -67,8 +69,27 @@ test('a valid note can be added', async () => {
 })
 
 test('verify that if the likes property is missing from the request', async () => {
-  
+  const newPost =  {
+    title: 'Look at this!',
+    author: 'Dingus Mcgee',
+    url: 'https://github.com/samuelaparker',
+    }
+
+    await api
+    .post('/api/blogs')
+    .send(newPost)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  const likes = response.body.map(r => r.likes)
+  expect(contents).toContain(
+    'Browser can execute only Javascript'
+  )
 })
+
+
+
 
 afterAll(() => {
   mongoose.connection.close()
