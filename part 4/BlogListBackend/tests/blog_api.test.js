@@ -64,7 +64,7 @@ test('a valid note can be added', async () => {
   expect(title).toContain('Building Good Study Habits')
 })
 
-test('verify that if the likes property is missing from the request', async () => {
+test('when blog\'s likes is not set it will be set to 0', async () => {
   const newPost =  {
     title: 'Look at this!',
     author: 'Dingus Mcgee',
