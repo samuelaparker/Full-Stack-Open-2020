@@ -36,10 +36,13 @@ test('check that all blogs are returned', async () => {
     expect(response.body.length).toBe(helper.initialBlogs.length)
   })
 
+})
+
 test('check if blogs have id property', async () => {
   const result = await api.get('/api/blogs')
   expect(result.body.map(blog => blog.id)).toBeDefined()
 })
+
 
 test('a valid note can be added', async () => {
   const newPost = {
@@ -58,6 +61,7 @@ test('a valid note can be added', async () => {
   const response = await api.get('/api/blogs')
 
   const title = response.body.map(r => r.title)
+
 
   expect(response.body).toHaveLength(helper.initialBlogs.length + 1)
   expect(title).toContain('Building Good Study Habits')
@@ -83,27 +87,23 @@ test('when blog\'s likes is not set it will be set to 0', async () => {
     expect(blogNoLikes.likes).toBe(0)
   })
   
+  test('fails with status code 400 if data invaild', async () => {
+    const newBlogNoUrl = {
+      title: 'Type wars',
+      author: 'Robert C. Martin',
+    }
 
-  // test('fails with status code 400 if data invaild', async () => {
-  //   const newPost = {
-  //     important: true
-  //   }
+    await api
+      .post('/api/blogs')
+      .send(newBlogNoUrl)
+      .expect(400)
 
-  //   await api
-  //     .post('/api/blogs')
-  //     .send(newPost)
-  //     .expect(400)
+    const postsAtEnd = await helper.blogsInDb()
 
-  //   const postsAtEnd = await helper.notesInDb()
+    expect([postsAtEnd]).toHaveLength(helper.initialBlogs.length)
+  })
 
-  //   expect([postsAtEnd]).toHaveLength(helper.initialBlogs.length)
-  // })
-})
-test('test', async () => {
-  const response = await api.get('/api/blogs')
-  console.log(response)
-  expect(response).toBe(response)
-})
+
 
 afterAll(() => {
   mongoose.connection.close()

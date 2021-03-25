@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
-mongoose.set('useFindAndModify', false)
 
-const blogSchema = mongoose.Schema({
+const blogSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -20,7 +19,7 @@ const blogSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+  })
 
   blogSchema.set('toJSON', {
   transform: (document, returnedObject) => {
