@@ -6,7 +6,7 @@ POST http://localhost:3003/api/blogs/
 Content-Type: application/json
 
 {
-    "title": "Gardening Tips",
+    "title": "More Gardening Tips",
     "author": "Robin Kerber",
     "body": "",
     "url": "",
