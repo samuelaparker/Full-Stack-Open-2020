@@ -9,7 +9,9 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
   const blog = new Blog({
-    ...body,
+    title: body.title,
+    author: body.author,
+    url: body.url,
   })
   const savedBlog = await blog.save()
   response.json(savedBlog.toJSON())
@@ -20,9 +22,9 @@ blogsRouter.get('/:id', async (request, response) => {
   if (blog) {
     response.json(blog.toJSON())
   } else {
-    response.status(404).end
+    response.status(404).end()
   }
-  
+
   blogsRouter.delete('/:id', async (request, response) => {
     await Blog.findByIdAndRemove(request.params.id)
     response.status(204).end()
