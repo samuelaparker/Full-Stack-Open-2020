@@ -101,32 +101,39 @@ test('a specific note can be viewed', async () => {
   expect(resultNote.body).toEqual(processedNoteToView)
 })
 
-
-test('fails with status code 400 if data invaild', async () => {
-  const newBlogNoUrl = {
-    title: 'Type wars',
-    author: 'Robert C. Martin',
-  }
+test('fails with statuscode 400 id is invalid', async () => {
+  const invalidId = '5a3d5da59070081a82a3445'
 
   await api
-    .post('/api/blogs')
-    .send(newBlogNoUrl)
+    .get(`/api/blogs/${invalidId}`)
     .expect(400)
-
-  const postsAtEnd = await helper.blogsInDb()
-  expect(postsAtEnd.length).toBe(helper.initialBlogs.length)
-  
+    
 })
+
+
+// test('fails with status code 400 if data invaild', async () => {
+//   const newBlogNoUrl = {
+//     title: 'Type wars',
+//     author: 'Robert C. Martin',
+//   }
+
+//   await api
+//     .post('/api/blogs')
+//     .send(newBlogNoUrl)
+//     .expect(400)
+
+//   const postsAtEnd = await helper.blogsInDb()
+//   expect(postsAtEnd.length).toBe(helper.initialBlogs.length)
+  
+// })
 
 
 // test('fails with status code 400 if data is invalid', async () => {
 //   const newBlogNoUrl = {
 //     title: 'Type wars',
 //     author: 'Robert C. Martin',
-//     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html'
 //   }
 //   const newBlogNoTitle = {
-//     title: null,
 //     author: 'Robert C. Martin',
 //     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
 //   }
