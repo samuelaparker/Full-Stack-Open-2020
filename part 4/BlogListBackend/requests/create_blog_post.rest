@@ -5,13 +5,13 @@ Content-Type: application/json
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
 
-{
-    "title": "More Gardening Tips",
-    "author": "Robin Kerber",
-    "body": "",
-    "url": "",
-    "likes": ""
-}
+ {
+      "title": "React patterns",
+      "author": "Michael Chan",
+      "url": "https://reactpatterns.com/",
+      "likes": "7",
+    },
+
 ###
 PUT http://localhost:3003/api/blogs/
 Content-Type: application/json
@@ -21,6 +21,6 @@ Content-Type: application/json
     "number": "12377777777777"
 }
 ###
-DELETE   http://localhost:3003/api/blogs/
+DELETE   http://localhost:3003/api/blogs/6021a4b2ecd0e6f186b11db4
 # Content-Type: application/json
 ###
