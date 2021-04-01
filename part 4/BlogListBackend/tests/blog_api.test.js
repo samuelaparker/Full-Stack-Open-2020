@@ -87,6 +87,36 @@ test('when blog\'s likes is not set it will be set to 0', async () => {
   expect(blogNoLikes.likes).toBe(0)
 })
 
+test('fails with statuscode 400 id is invalid', async () => {
+  const invalidId = '5a3d5da59070081a82a3445'
+
+  await api
+    .get(`/api/blogs/${invalidId}`)
+    .expect(400)
+    
+})
+
+test('fails with status code 400 if data is invalid', async () => {
+    const newBlogNoUrl = {
+      title: 'Type wars',
+      author: 'Robert C. Martin',
+    }
+    const newBlogNoTitle = {
+      author: 'Robert C. Martin',
+      url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
+    }
+  
+    await api.post('/api/blogs').send(newBlogNoUrl)
+      .expect(400)
+  
+    await api.post('/api/blogs').send(newBlogNoTitle)
+      .expect(400)
+  
+    const blogsAtDb = await helper.blogsInDb()
+    console.log(blogsAtDb)
+    expect(blogsAtDb.length).toBe(helper.initialBlogs.length)
+  })
+
 test('a specific note can be viewed', async () => {
   const notesAtStart = await helper.blogsInDb()
 
@@ -101,14 +131,7 @@ test('a specific note can be viewed', async () => {
   expect(resultNote.body).toEqual(processedNoteToView)
 })
 
-test('fails with statuscode 400 id is invalid', async () => {
-  const invalidId = '5a3d5da59070081a82a3445'
 
-  await api
-    .get(`/api/blogs/${invalidId}`)
-    .expect(400)
-    
-})
 
 
 // test('fails with status code 400 if data invaild', async () => {
@@ -128,25 +151,7 @@ test('fails with statuscode 400 id is invalid', async () => {
 // })
 
 
-// test('fails with status code 400 if data is invalid', async () => {
-//   const newBlogNoUrl = {
-//     title: 'Type wars',
-//     author: 'Robert C. Martin',
-//   }
-//   const newBlogNoTitle = {
-//     author: 'Robert C. Martin',
-//     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
-//   }
-
-//   await api.post('/api/blogs').send(newBlogNoUrl)
-//     .expect(400)
-
-//   await api.post('/api/blogs').send(newBlogNoTitle)
-//     .expect(400)
-
-//   const blogsAtDb = await helper.blogsInDb()
-//   expect(blogsAtDb.length).toBe(helper.initialBlogs.length)
-// })
+//
 
 
 
