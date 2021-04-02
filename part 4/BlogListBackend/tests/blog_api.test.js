@@ -114,7 +114,7 @@ test('fails with status code 400 if data is invalid', async () => {
   
     const blogsAtDb = await helper.blogsInDb()
     console.log(blogsAtDb)
-    expect(blogsAtDb.length).toBe(helper.initialBlogs.length)
+    expect(blogsAtDb.length).toBe(helper.initialBlogs.length + 2)
   })
 
 test('a specific note can be viewed', async () => {
@@ -130,28 +130,6 @@ test('a specific note can be viewed', async () => {
   const processedNoteToView = JSON.parse(JSON.stringify(noteToView))
   expect(resultNote.body).toEqual(processedNoteToView)
 })
-
-
-
-
-// test('fails with status code 400 if data invaild', async () => {
-//   const newBlogNoUrl = {
-//     title: 'Type wars',
-//     author: 'Robert C. Martin',
-//   }
-
-//   await api
-//     .post('/api/blogs')
-//     .send(newBlogNoUrl)
-//     .expect(400)
-
-//   const postsAtEnd = await helper.blogsInDb()
-//   expect(postsAtEnd.length).toBe(helper.initialBlogs.length)
-  
-// })
-
-
-//
 
 
 
