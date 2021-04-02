@@ -8,7 +8,7 @@ Content-Type: application/json
 
  {
       "title": "React patterns",
-      "author": "Michael Chan",
+      "author": "Benjamin Parker",
       "url": "https://reactpatterns.com/",
       "likes": "7"
     }
@@ -25,3 +25,13 @@ Content-Type: application/json
 DELETE   http://localhost:3003/api/blogs/606773a10410627deccb21d0
 # Content-Type: application/json
 ###
+PUT http://localhost:3003/api/blogs/6022f56eecd0e6f186b11db5
+Content-Type: application/json
+
+ {
+    "likes": 4000,
+    "title": "I love to code",
+    "author": "Sam Parker",
+    "url": "",
+    "id": "6022f56eecd0e6f186b11db5"
+  }
