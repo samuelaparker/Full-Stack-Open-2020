@@ -22,6 +22,6 @@ Content-Type: application/json
     "number": "12377777777777"
 }
 ###
-DELETE   http://localhost:3003/api/blogs/6021a4b2ecd0e6f186b11db4
+DELETE   http://localhost:3003/api/blogs/606773a10410627deccb21d0
 # Content-Type: application/json
 ###
