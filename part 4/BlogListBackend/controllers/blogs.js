@@ -1,4 +1,6 @@
 const blogsRouter = require('express').Router()
+//Blog is the mongoose model
+//Models are responsible for creating and reading documents from the underlying MongoDB database.
 const Blog = require('../models/blog')
 
 blogsRouter.get('/', async (request, response) => {
@@ -8,6 +10,7 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
+  //blog (lowercase) is a document (an instance of a model)
   const blog = new Blog({
     title: body.title,
     author: body.author,
