@@ -35,3 +35,16 @@ Content-Type: application/json
     "url": "",
     "id": "6022f56eecd0e6f186b11db5"
   }
+
+###
+POST http://localhost:3003/api/users/
+Content-Type: application/json
+
+ {
+    "notes": [],
+    "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
+}
+
+###
