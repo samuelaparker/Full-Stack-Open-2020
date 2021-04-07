@@ -149,6 +149,30 @@ describe('when there is initially one user in db', () => {
   })
 })
 
+describe('tests for user validation', () => {
+  test('creation fails if username or password under three characters', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser = {
+      username: 'ro',
+      name: 'Superuser',
+      password: 'dh',
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('`password and username must be at least 3 characters`')
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd.length).toBe(usersAtStart.length)
+  })
+})
+
+
 
 afterAll(() => {
   mongoose.connection.close()
