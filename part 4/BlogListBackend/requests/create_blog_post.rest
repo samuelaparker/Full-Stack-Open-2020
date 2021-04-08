@@ -7,11 +7,12 @@ POST http://localhost:3003/api/blogs/
 Content-Type: application/json
 
  {
-      "title": "React patterns",
-      "author": "Benjamin Parker",
-      "url": "https://reactpatterns.com/",
-      "likes": "7"
-    }
+    "likes": "0",
+    "title": "React patterns",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "id": "6066049665a9225fc56bf673"
+  },
 
 ###
 PUT http://localhost:3003/api/blogs/
@@ -22,7 +23,7 @@ Content-Type: application/json
     "number": "12377777777777"
 }
 ###
-DELETE   http://localhost:3003/api/blogs/606773a10410627deccb21d0
+DELETE   http://localhost:3003/api/blogs/6066049665a9225fc56bf673
 # Content-Type: application/json
 ###
 PUT http://localhost:3003/api/blogs/6022f56eecd0e6f186b11db5
