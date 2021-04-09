@@ -11,7 +11,7 @@ Content-Type: application/json
     "title": "React patterns",
     "author": "Michael Chan",
     "url": "https://reactpatterns.com/",
-    "id": "6066049665a9225fc56bf673"
+    
   },
 
 ###
@@ -42,10 +42,16 @@ POST http://localhost:3003/api/users/
 Content-Type: application/json
 
  {
-    "notes": [],
-    "username": "root",
+    "blogs": [],
+    "username": "user3",
     "name": "Superuser",
     "password": "salainen"
 }
+
+###
+
+
+GET http://localhost:3003/api/users/
+Content-Type: application/json
 
 ###

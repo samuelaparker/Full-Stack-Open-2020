@@ -1,8 +1,9 @@
 const blogsRouter = require('express').Router()
 //Blog is the mongoose model
 //Models are responsible for creating and reading documents from the underlying MongoDB database.
-const Blog = require('../models/blog')
 const User = require('../models/user')
+const Blog = require('../models/blog')
+
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
@@ -12,27 +13,25 @@ blogsRouter.get('/', async (request, response) => {
   response.json(blogs.map(blog => blog.toJSON()))
 })
 
-
-
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
+  // console.log('this is body', body)
   //blog (lowercase) is a document (an instance of a model)
-
   const user = await User.findById(body.userId)
-
-
+  
+  console.log('this is user id', user)
   const blog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
-    user: user._id
+    user: user.id
   })
 
   const savedBlog = await blog.save()
   user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()
 
-  response.json(savedBlog.toJSON())
+  response.json(savedBlog)
 
 })
 
@@ -60,8 +59,8 @@ blogsRouter.put('/:id', (request, response, next) => {
   }
 
   Blog.findByIdAndUpdate(request.params.id, post, { new: true })
-    .then(updatedNote => {
-      response.json(updatedNote.toJSON())
+    .then(updatedBlog => {
+      response.json(updatedBlog.toJSON())
     })
     .catch(error => next(error))
 })

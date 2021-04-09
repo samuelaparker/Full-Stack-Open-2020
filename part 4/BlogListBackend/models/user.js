@@ -5,12 +5,13 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
-        required: true,
     },
     name: String,
-    passwordHash: { type: String, required: true },
-    notes: [
+    // passwordHash: { type: String, required: true },
+    passwordHash: String,
+    blogs: [
         {
+            //generates id
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Blog'
         }
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
 // });
  
 
-userSchema.plugin(uniqueValidator)
+
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
@@ -36,6 +37,8 @@ userSchema.set('toJSON', {
         delete returnedObject.passwordHash
     }
 })
+
+userSchema.plugin(uniqueValidator)
 
 const User = mongoose.model('User', userSchema)
 
