@@ -15,23 +15,26 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
+  
   // console.log('this is body', body)
   //blog (lowercase) is a document (an instance of a model)
-  const user = await User.findById(body.userId)
-  
-  console.log('this is user id', user)
+  const user = await User.findById(body.id)
+
+  console.log('!!!!!!!!!!', user._id)
+
   const blog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
-    user: user.id
+    user: user._id
   })
 
   const savedBlog = await blog.save()
   user.blogs = user.blogs.concat(savedBlog._id)
+  
   await user.save()
 
-  response.json(savedBlog)
+  response.json(savedBlog.toJSON())
 
 })
 

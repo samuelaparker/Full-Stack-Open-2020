@@ -4,13 +4,16 @@ const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
   const users = await User
-    .find({}).populate('blogs', { content: 1, date: 1 })
+    .find({}).populate('blogs', { url: 1, title: 1, author: 1 })
   response.json(users.map(u => u.toJSON()))
 })
 
 usersRouter.post('/', async (request, response) => {
   const body = request.body
 //input validation here
+if (body.password === undefined || body.password.length < 3) {
+    return request.status(400).json({ error: 'minimum length for password is 3 characters' })
+  }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(body.password, saltRounds)
 

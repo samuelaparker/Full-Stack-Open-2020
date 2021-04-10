@@ -11,8 +11,8 @@ Content-Type: application/json
     "title": "React patterns",
     "author": "Michael Chan",
     "url": "https://reactpatterns.com/",
-    
-  },
+    "id": "606fb81db766e982f3db4cf0" 
+  }
 
 ###
 PUT http://localhost:3003/api/blogs/
@@ -23,8 +23,7 @@ Content-Type: application/json
     "number": "12377777777777"
 }
 ###
-DELETE   http://localhost:3003/api/blogs/6066049665a9225fc56bf673
-# Content-Type: application/json
+DELETE   http://localhost:3003/api/blogs/606b86e791a03a33a4ba01a4
 ###
 PUT http://localhost:3003/api/blogs/6022f56eecd0e6f186b11db5
 Content-Type: application/json
@@ -34,7 +33,7 @@ Content-Type: application/json
     "title": "I love to code",
     "author": "Sam Parker",
     "url": "",
-    "id": "6022f56eecd0e6f186b11db5"
+    "id": "607083edb7c5028fe7eab3f9"
   }
 
 ###
