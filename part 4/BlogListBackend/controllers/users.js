@@ -10,12 +10,13 @@ usersRouter.get('/', async (request, response) => {
 
 usersRouter.post('/', async (request, response) => {
   const body = request.body
-//input validation here
-if (body.password === undefined || body.password.length < 3) {
-    return request.status(400).json({ error: 'minimum length for password is 3 characters' })
-  }
+  
+// if (body.password === undefined || body.password.length < 3) {
+//     return response.status(400).json({ error: 'minimum length for password is 3 characters' })
+//   }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(body.password, saltRounds)
+
 
   const user = new User({
     username: body.username,
