@@ -1,74 +1,57 @@
 const _ = require('lodash')
 
-const dummy = () => {
-  return 1;
-}
-
 const totalLikes = (blogs) => {
-  return blogs.length === 0
-    ? 0
-    : blogs.reduce((acc, cur) => acc + cur.likes, 0)
-}
-const palindrome = (string) => {
-  return string
-    .split('')
-    .reverse()
-    .join('')
+  if ( blogs.length===0) {
+    return 0
+  }
+
+  return blogs.reduce((s, b) => s + b.likes, 0)
 }
 
-let favoriteBlogs = (blogs) => {
-  if (blogs.length === 0) {
+const favoriteBlog = (blogs) => {
+  if ( blogs.length===0) {
     return null
-  } else {
-    let arr = blogs.map(n => (n.likes))
-    let i = arr.indexOf(Math.max(...arr))
-    return blogs[i]
   }
 
-}
+  const withMostVotes = (best, current) => {
+    if ( !best ) {
+      return current
+    }
 
-const average = (array) => {
-  const reducer = (sum, item) => {
-    return sum + item
+    return best.likes > current.likes ? best : current
   }
-  return array.length === 0
-    ? 0
-    : array.reduce(reducer, 0) / array.length
+
+  return blogs.reduce(withMostVotes , null)
 }
 
 const mostBlogs = (blogs) => {
-  if (blogs.length === 0) {
+  if ( blogs.length===0) {
     return null
-  } else {
-    const blogCountByAuthor = _.map(
-      _.countBy(blogs, 'author'), (blogs, author) => ({ blogs, author })
-    )
-    return _.maxBy(blogCountByAuthor, 'blogs');
   }
+
+  const blogsByAuthor = _.toPairs(_.groupBy(blogs, b => b.author))
+  const blockCountByAuthor = blogsByAuthor.map(([author, blogs]) => ({
+    author, 
+    blogs: blogs.length
+  }) ).sort((a1, a2 ) => a2.blogs - a1.blogs)
+
+  return blockCountByAuthor[0]
 }
 
 const mostLikes = (blogs) => {
-  if (blogs.length === 0) {
-    return null;
-  } else {
-    let bloggerList = _.groupBy(blogs, 'author')
-    let list = []
-    _.forEach(bloggerList, (blogger) => {
-      list.push({
-        author: _.head(blogger).author,
-        likes: _.sumBy(blogger, (blog) => (blog.likes))
-      })
-    })
-    return  _.maxBy(list, 'likes');
+  if ( blogs.length===0) {
+    return null
   }
+
+  const blogsByAuthor = _.toPairs(_.groupBy(blogs, b => b.author))
+  const likeCountByAuthor = blogsByAuthor.map(([author, blogs]) => ({
+    author, 
+    likes: blogs.reduce((s, b) => s + b.likes, 0)
+  }) ).sort((a1, a2 ) => a2.likes - a1.likes)
+
+  return likeCountByAuthor[0]
 }
 
 module.exports = {
-  dummy,
-  palindrome,
-  average,
-  totalLikes,
-  favoriteBlogs, 
-  mostBlogs,
-  mostLikes,
+  totalLikes, favoriteBlog, mostBlogs, mostLikes
 }
